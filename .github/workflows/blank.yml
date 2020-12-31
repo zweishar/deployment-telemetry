@@ -42,6 +42,7 @@ jobs:
           GIT_REMOTE_ADDRESS: ${{ secrets.GIT_REMOTE }}
           GIT_REMOTE_NAME: "destination"
         run: |
+          yak yak yak yak
           echo GIT_REMOTE_ADDRESS: $GIT_REMOTE_ADDRESS
           echo GIT_REMOTE_NAME: $GIT_REMOTE_NAME
           echo GITHUB_REF: $GITHUB_REF
