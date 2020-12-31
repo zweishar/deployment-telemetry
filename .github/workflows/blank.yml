@@ -37,7 +37,9 @@ jobs:
       - name: Push to remote repo
         env:
           GIT_REMOTE: ${{ secrets.GIT_REMOTE }}
-        run: /
+        run: |
+          echo GIT_REMOTE: $GIT_REMOTE
+          echo GITHUB_REF: $GITHUB_REF
           git remote add destination $GIT_REMOTE
           git push $GITHUB_REF $GIT_REMOTE
 
