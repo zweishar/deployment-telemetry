@@ -15,8 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  push_to_remote:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -50,3 +49,29 @@ jobs:
           git fetch origin $BRANCH --unshallow
           git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
           git push $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}
+
+  success-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: exit 0
+      - name: Slack Success
+        if: always()
+        uses: kpritam/slack-job-status-action@v1
+        with:
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: github-actions-test
+
+  failure-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: exit 1
+      - name: Slack Failure
+        if: always()
+        uses: kpritam/slack-job-status-action@v1
+        with:
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: github-actions-test
