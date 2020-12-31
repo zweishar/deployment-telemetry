@@ -33,6 +33,11 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           # config: ${{ secrets.CONFIG }} # ssh_config; optional
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       # $GITHUB_REF is available by default. See https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
       - name: Push to remote repo
         env:
@@ -40,6 +45,7 @@ jobs:
         run: |
           echo GIT_REMOTE: $GIT_REMOTE
           echo GITHUB_REF: $GITHUB_REF
+          echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
           git remote add destination $GIT_REMOTE
           git push $GITHUB_REF $GIT_REMOTE
 
