@@ -49,6 +49,9 @@ jobs:
           echo GITHUB_REF: $GITHUB_REF
           echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
           git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
+          git fetch $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}:${{ steps.extract_branch.outputs.branch }}
+
+# git push ${{ steps.extract_branch.outputs.branch }} $GIT_REMOTE_NAME
 
 #
 # Runs a set of commands using the runners shell
