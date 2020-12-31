@@ -50,26 +50,8 @@ jobs:
           git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
           git push $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}
 
-  success-notification:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: exit 0
-      - name: Slack Success
-        if: always()
-        uses: kpritam/slack-job-status-action@v1
-        with:
-          job-status: ${{ job.status }}
-          slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: github-actions-test
-
-  failure-notification:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: exit 1
-      - name: Slack Failure
-        if: always()
+      - name: Notify Slack on Failure
+        if: ${{ failure() }}
         uses: kpritam/slack-job-status-action@v1
         with:
           job-status: ${{ job.status }}
