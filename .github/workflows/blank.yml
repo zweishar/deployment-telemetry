@@ -25,13 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      # Make sure the @v0.4.1 matches the current version of the
+      # action
       - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - uses: webfactory/ssh-agent@v0.4.1
         with:
-          key: ${{ secrets.SSH_KEY }}
-          name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      # - name: Install SSH key
+      #   uses: shimataro/ssh-key-action@v2
+      #   with:
+      #     key: ${{ secrets.SSH_KEY }}
+      #     name: id_rsa # optional
+      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      # config: ${{ secrets.CONFIG }} # ssh_config; optional
 
       # $GITHUB_REF is available by default. See https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
       - name: Extract branch name
