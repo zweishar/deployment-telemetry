@@ -46,7 +46,7 @@ jobs:
           echo GIT_REMOTE: $GIT_REMOTE
           echo GITHUB_REF: $GITHUB_REF
           echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
-          git remote add destination $GIT_REMOTE
+          git remote add destination git@github.com:zweishar/deployment-telemetry.git
           echo git remote -v
 
 # git push ${{ steps.extract_branch.outputs.branch }} $GIT_REMOTE
