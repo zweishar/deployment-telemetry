@@ -52,11 +52,9 @@ jobs:
           git push $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}
 
       - name: Notify Slack on Failure
-        env:
-          SLACK_BOT_CHANNEL: ${{ secrets.SLACK_BOT_CHANNEL }}
         if: ${{ failure() }}
         uses: kpritam/slack-job-status-action@v1
         with:
           job-status: ${{ job.status }}
           slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: $SLACK_BOT_CHANNEL
+          channel: ${{ secrets.SLACK_BOT_CHANNEL }}
