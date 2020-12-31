@@ -48,8 +48,7 @@ jobs:
           echo GIT_REMOTE_NAME: $GIT_REMOTE_NAME
           echo GITHUB_REF: $GITHUB_REF
           echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
-          git remote add $GIT_REMOTE_NAME git@github.com:zweishar/deployment-telemetry.git
-          git push ${{ steps.extract_branch.outputs.branch }} $GIT_REMOTE_NAME
+          git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
 
 #
 # Runs a set of commands using the runners shell
