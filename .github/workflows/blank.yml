@@ -32,14 +32,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      # - name: Install SSH key
-      #   uses: shimataro/ssh-key-action@v2
-      #   with:
-      #     key: ${{ secrets.SSH_KEY }}
-      #     name: id_rsa # optional
-      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      # config: ${{ secrets.CONFIG }} # ssh_config; optional
-
       # $GITHUB_REF is available by default. See https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
       - name: Extract branch name
         shell: bash
@@ -56,7 +48,7 @@ jobs:
           echo GITHUB_REF: $GITHUB_REF
           echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
           git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
-          git fetch $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}:${{ steps.extract_branch.outputs.branch }}
+          git pull $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }}
 
 # git push ${{ steps.extract_branch.outputs.branch }} $GIT_REMOTE_NAME
 
