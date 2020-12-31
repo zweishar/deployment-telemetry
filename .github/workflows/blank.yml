@@ -47,6 +47,7 @@ jobs:
           echo GIT_REMOTE_NAME: $GIT_REMOTE_NAME
           echo GITHUB_REF: $GITHUB_REF
           echo BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          git fetch origin $BRANCH --unshallow
           git remote add $GIT_REMOTE_NAME $GIT_REMOTE_ADDRESS
           git pull $GIT_REMOTE_NAME ${{ steps.extract_branch.outputs.branch }} --ff-only
 
